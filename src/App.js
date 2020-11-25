@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
+import Actors from './components/actors';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    state = {
+        actors: []
+    }
+  
+    componentDidMount(){
+        fetch("http://localhost:3000/api/actor")
+        .then(res => res.json())
+        .then((data)=>{
+            this.setState({ actors: data.actors})
+        })
+        .catch(console.log)
+    }
+
+	render(){
+		return (
+            <div>
+                <Navbar />
+                <Actors actors={this.state.actors}/>
+            </div>
+        );
+    }
+}
+
+class Navbar extends React.Component{
+    render(){
+        return(
+            <nav className="navbar navbar-dark bg-dark">
+                <span className="navbar-brand mb-0 h1">Navbar</span>
+            </nav>
+        );
+    }
 }
 
 export default App;
