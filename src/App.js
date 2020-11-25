@@ -8,7 +8,7 @@ class App extends React.Component {
     }
   
     componentDidMount(){
-        fetch("http://localhost:3000/api/actor")
+        fetch("https://my-json-server.typicode.com/mianfremo/json-test/db")
         .then(res => res.json())
         .then((data)=>{
             this.setState({ actors: data.actors})
