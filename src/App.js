@@ -1,39 +1,53 @@
 import React from 'react';
-import Actors from './components/actors';
+import IndexView from './views/indexView';
+import MovieItemView from './views/movieItemView';
+import AddActorView from './views/addActorView';
+import AddGenreView from './views/addGenreView';
+import AddMovieView from './views/addMovieView';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './App.css';
 
 class App extends React.Component {
-    state = {
-        actors: []
-    }
-  
-    componentDidMount(){
-        fetch("https://my-json-server.typicode.com/mianfremo/json-test/db")
-        .then(res => res.json())
-        .then((data)=>{
-            this.setState({ actors: data.actors})
-        })
-        .catch(console.log)
-    }
 
 	render(){
 		return (
-            <div>
-                <Navbar />
-                <Actors actors={this.state.actors}/>
-            </div>
+			<Router>
+	            <Switch>
+	            	<Route path="/movie/:id">
+		            	<MovieItemView />
+		            </Route>
+
+		            <Route path="/addGenre">
+		            	<AddGenreView />
+		            </Route>
+
+		            <Route path="/addActor">
+		            	<AddActorView />
+		            </Route>
+
+		            <Route path="/addMovie">
+		            	<AddMovieView/>
+		            </Route>
+
+	            	<Route path="/">
+		                <IndexView />
+		            </Route>
+
+		            
+
+	            </Switch>
+	        </Router>
         );
     }
 }
 
-class Navbar extends React.Component{
-    render(){
-        return(
-            <nav className="navbar navbar-dark bg-dark">
-                <span className="navbar-brand mb-0 h1">Navbar</span>
-            </nav>
-        );
-    }
-}
 
 export default App;

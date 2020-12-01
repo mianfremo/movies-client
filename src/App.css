@@ -1,0 +1,48 @@
+body{
+	background-color: #080808;
+}
+
+.img-movie{
+	width: 60%;
+}
+
+.img-movie:hover{
+	width: 62%;
+}
+
+.img-movieBlock{
+	width: 70%;
+}
+
+.undecorated-link{
+	color: #CDCDCD;
+}
+
+.undecorated-link:hover{
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.bg-branding{
+	background-color: #FF4B0C;
+}
+
+.text-branding{
+	color:#FF4B0C;
+}
+
+.font-raleway{
+	font-family: 'Raleway', sans-serif;
+	font-size: 15pt;
+}
+
+.font-title{
+	font-family: 'Bebas Neue', cursive;
+	font-size: 50pt;
+}
+
+.text-rate{
+	font-family: 'Bebas Neue', cursive;
+	font-size: 20pt;
+	color:white;
+}
