@@ -8,7 +8,7 @@ class AddActorView extends React.Component{
 			<div>
 				<Navbar />
 				<div className="container mt-4">
-					<ActorForm />
+					<ActorForm/>
 				</div>
 			</div>
 		);

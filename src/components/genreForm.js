@@ -35,9 +35,9 @@ class GenreForm extends React.Component{
   render() {
     return (
     	<div className="row justify-content-center">
-	      	<form onSubmit={this.handleSubmit} className="col-lg-6">
+	      	<form onSubmit={this.handleSubmit} className="col-lg-6 bg-light p-4">
 		        <div className="form-group">
-				    <label className="text-light" htmlFor="inputGenre">Nombre</label>
+				    <label htmlFor="inputGenre">Nombre</label>
 				    <input type="text" className="form-control" id="inputGenre" placeholder="Inserte el nombre del Género" value={this.state.name} onChange={this.handleChange}/>
 				</div>
 		        <input className="btn text-light col-lg-12 bg-branding" type="submit" value="Enviar" />
