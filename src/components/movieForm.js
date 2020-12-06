@@ -5,23 +5,61 @@ class MovieForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			image: null,
+			title: "",
+			desc: "",
+			rate: 0,
+			imageSrc: Config.imageServer+"default.png",
+			image: "",
 			actorSelect: [],
-			genreSelect: []
+			genreSelect: [],
+			actors: [],
+			genres: []
 		}
 
 		this.handleUpload = this.handleUpload.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit(){
-		console.log("hello")
+	handleSubmit(event){
+		
+		var requestOptions = {}
+
+		const params = new URLSearchParams({
+		    'title': this.state.title,
+		    'desc': this.state.desc,
+		    'image': this.state.image,
+		    'rate': parseFloat(this.state.rate)
+		});
+
+		if (this.state.actors.length !== 0) {
+		    params.append("actors", this.state.actors)
+		}
+
+		if (this.state.genres.length !== 0) {
+		    params.append("genres", this.state.genres)
+		}
+
+		requestOptions.method = "POST";
+		requestOptions.body = params;
+	    
+
+	    fetch(Config.restServer+"/movie", requestOptions)
+	        .then(response => response.json())
+
+	    alert("Película agregada con éxito")
+
+	    event.preventDefault();
 	}
 
 	handleUpload(event){
+		let img = event.target.files[0]
+		
 		this.setState({
-	      	image: URL.createObjectURL(event.target.files[0])
+	      	imageSrc: URL.createObjectURL(img),
+	      	image: img.name
 	    })
+
 	}
 
 	handleChange(e){
@@ -30,6 +68,14 @@ class MovieForm extends React.Component{
 
 		if(element.tagName === "SELECT"){
 			let value = Array.from(element.selectedOptions, option => option.value);
+			this.setState({
+				[element.name]: value
+			})
+		}else{
+
+			this.setState({
+				[element.name]: element.value
+			})
 		}
 	}
 
@@ -38,8 +84,6 @@ class MovieForm extends React.Component{
 	        .then(res => res.json())
 	        .then((data)=>{
 	            this.setState({ genreSelect: data.genres.map((genre)=>
-	            	//El value es un string json para ser convertido en objeto
-	            	//value={'{"id":"'+movie._id+'","title":"'+movie.title+'"}'}
 	            	<option value={genre._id}>{genre.name}</option>	            	            	
 	            )})
         })
@@ -49,8 +93,6 @@ class MovieForm extends React.Component{
 	        .then(res => res.json())
 	        .then((data)=>{
 	            this.setState({ actorSelect: data.actors.map((actor)=>
-	            	//El value es un string json para ser convertido en objeto
-	            	//value={'{"id":"'+movie._id+'","title":"'+movie.title+'"}'}
 	            	<option value={actor._id}>{actor.name}</option>	            	            	
 	            )})
         })
@@ -66,23 +108,23 @@ class MovieForm extends React.Component{
 		      			<div className="col-sm-8">
 					        <div className="form-group">
 							    <label htmlFor="inputTitle">Título</label>
-							    <input name="title" type="text" className="form-control" id="inputTitle" placeholder="Inserte el título de la película"/>
+							    <input name="title" type="text" className="form-control" id="inputTitle" placeholder="Inserte el título de la película" onChange={this.handleChange}/>
 							</div>
 							<div className="form-group">
 							    <label htmlFor="inputDesc">Descripción</label>
-							    <textarea className="form-control" id="inputDesc" rows="3" name="desc">
+							    <textarea className="form-control" id="inputDesc" rows="3" name="desc" onChange={this.handleChange}>
 							    	
 							    </textarea>
 							</div>
 						</div>
 						<div className="col-sm-4 text-center">
-							<img className="img-fluid" src={this.state.image}/>
+							<img className="img-fluid" src={this.state.imageSrc}/>
 						</div>
 					</div>
 
 					<div className="form-group">
 					    <label htmlFor="inputRate">Calificación</label>
-					    <input name="title" type="text" className="form-control" id="inputRate" placeholder="Inserte la calificación de la película"/>
+					    <input name="rate" type="text" className="form-control" id="inputRate" placeholder="Inserte la calificación de la película" onChange={this.handleChange}/>
 					</div>
 
 					<div className="form-group">
@@ -92,14 +134,14 @@ class MovieForm extends React.Component{
 
 					<div className="form-group">
 						<label htmlFor="inputGenre">Géneros</label>
-						<select id="inputGenre" className="form-control" size="4" multiple onChange={this.handleChange}>
+						<select name="genres" id="inputGenre" className="form-control" size="4" multiple onChange={this.handleChange}>
 							{this.state.genreSelect}
 						</select>
 					</div>
 
 					<div className="form-group">
 						<label htmlFor="inputActor">Actores</label>
-						<select id="inputActor" className="form-control" size="4" multiple onChange={this.handleChange}>
+						<select name="actors" id="inputActor" className="form-control" size="4" multiple onChange={this.handleChange}>
 							{this.state.actorSelect}
 						</select>
 					</div>					

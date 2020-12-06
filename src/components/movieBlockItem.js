@@ -1,5 +1,6 @@
 import React from 'react';
 import Config from '../config';
+import {Redirect} from 'react-router-dom';
 
 class MovieBlockItem extends React.Component{
 	constructor(props){
@@ -48,9 +49,7 @@ class MovieBlockItem extends React.Component{
 			);
 		}else{
 			return(
-				<div class="alert alert-warning" role="alert">
-				  	Esta película no existe <a href="/" class="alert-link">Volver al inicio</a>. 
-				</div>
+				<Redirect to="/error" />
 			);
 		}
 	}

@@ -4,6 +4,7 @@ import MovieItemView from './views/movieItemView';
 import AddActorView from './views/addActorView';
 import AddGenreView from './views/addGenreView';
 import AddMovieView from './views/addMovieView';
+import ErrorView from './views/errorView';
 
 import {
   BrowserRouter as Router,
@@ -35,6 +36,10 @@ class App extends React.Component {
 
 		            <Route path="/addMovie">
 		            	<AddMovieView/>
+		            </Route>
+
+		            <Route path="/error">
+		            	<ErrorView/>
 		            </Route>
 
 	            	<Route path="/">

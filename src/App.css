@@ -2,6 +2,10 @@ body{
 	background-color: #080808;
 }
 
+.error-image{
+	width: 350px;
+}
+
 .img-movie{
 	width: 60%;
 }
